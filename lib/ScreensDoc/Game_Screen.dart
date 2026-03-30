@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:xo_game/Models/Color%20Maneger.dart';
 import 'package:xo_game/Models/GameBoard.dart';
-class GameScreen extends StatelessWidget {
+
+
+
+class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
 
   static const String routeNamed = 'game';
 
   @override
+  State<GameScreen> createState() => _GameScreenState();
+}
+
+class _GameScreenState extends State<GameScreen> {
+  int player1 = 0;
+  int player2 = 0;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -49,8 +58,8 @@ class GameScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text('Score 0', style: TextStyle(fontSize: 15)),
-                              Text('Score 0', style: TextStyle(fontSize: 15)),
+                              Text('$player1', style: TextStyle(fontSize: 15)),
+                              Text('$player2', style: TextStyle(fontSize: 15)),
                             ],
                           ),
                         ],
@@ -58,7 +67,7 @@ class GameScreen extends StatelessWidget {
                     ),
                   ),
                   //todo: game board
-                  Gameboard(),
+                  Gameboard(onPlayerWin: onPlayerWin,),
                 ],
               ),
             ),
@@ -66,5 +75,14 @@ class GameScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+  void onPlayerWin(String player) {
+    setState(() {
+      if (player == 'x') {
+        player1++;
+      } else {
+        player2++;
+      }
+    });
   }
 }

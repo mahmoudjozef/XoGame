@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 
-class semboltWidget extends StatelessWidget {
-  String sembol;
-  VoidCallback OnTap;
+typedef onTap = void Function(int);
 
-   semboltWidget({required this.sembol, required this.OnTap, super.key});
+class SymbolWidget extends StatelessWidget {
+  String sembol;
+  onTap OnTap;
+  int index;
+
+  SymbolWidget({
+    required this.sembol,
+    required this.OnTap,
+    required this.index,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap:OnTap,
-      child: Expanded(
-
-          child:sembol.isEmpty ? Container(): Image.asset('assets/$sembol.png')),
+    return Expanded(
+      child: InkWell(
+        onTap: () {
+          OnTap(index);
+        },
+        child: sembol.isEmpty ? Container() : Image.asset('assets/$sembol.png'),
+      ),
     );
   }
 }
